@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { I18nProvider } from "@/components/I18nProvider";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -21,6 +21,20 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: en.meta.title,
   description: en.meta.description,
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Wedding",
+  },
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({
