@@ -19,9 +19,14 @@
     "photoAlt": "Idan ate Gurdeep"
   },
   "instructions": {
-    "title": "Eh kiven kam karda hai",
-    "body": "Event ton vadh ton vadh 20 photoan upload karo. Sab lok sanjhian yaadan turant dekh sakde han.",
-    "enterEvent": "Event vich dakhil hovo"
+    "eyebrow": "Shuru karan ton pehlan kujh gallan",
+    "titleLead": "Jashan vich parn ton pehlan",
+    "titleAccent": "ik nazar",
+    "body": "Tusi raat ton 20 tak photoan share kar sakde ho. Har yaad jo tusi post karoge, oh ithhe sab lai dikhdi hai, taan ke jashan sanjha te pyara bane.",
+    "notes": "Hune photo lo ya baad vich upload karo.",
+    "nameTitle": "Tuhada naam",
+    "nameLabel": "Tuhada naam",
+    "enterEvent": "Jashan vich dakhil hovo"
   },
   "nameGate": {
     "placeholder": "Tuhada naam",
@@ -29,7 +34,9 @@
   },
   "app": {
     "loading": "Load ho reha hai...",
-    "placeholder": "Sanjhian yaadan jaldi ithe nazar aaungan."
+    "placeholder": "Sanjhian yaadan jaldi ithe nazar aaungan.",
+    "linkedTo": "Photoan {name} naal juriyaan jaan giyaan.",
+    "linkPrompt": "Instructions screen te apna naam pao taan jo photoan tuhade naal juriyaan hon."
   },
   "upload": {
     "upload": "Upload"

@@ -1,26 +1,48 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { signInAnonymously } from "firebase/auth";
-import { auth } from "@/lib/firebase";
-import UploadBox from "@/components/UploadBox";
-import Gallery from "@/components/Gallery";
-import { useI18n } from "@/components/I18nProvider";
+import { useState } from "react";
+import CaptureTab from "./CaptureTab";
+import GalleryTab from "./GalleryTab";
+import styles from "./gallery.module.css";
 
-export default function AppPage() {
-  const [user, setUser] = useState(false);
-  const { t } = useI18n();
+export type Tab = "capture" | "gallery";
 
-  useEffect(() => {
-    signInAnonymously(auth).then(() => setUser(true));
-  }, []);
-
-  if (!user) return <div>{t("app.loading")}</div>;
+export default function GalleryPage() {
+  const [activeTab, setActiveTab] = useState<Tab>("capture");
 
   return (
-    <main className="min-h-screen bg-black text-white p-4">
-      <UploadBox />
-      <Gallery />
+    <main className={styles.root}>
+      <div className={styles.header}>
+        <p className={styles.headerTitle}>Gurdeep &amp; Idan</p>
+        <p className={styles.headerSub}>September 2026</p>
+      </div>
+
+      <div className={styles.body}>
+        {activeTab === "capture" ? <CaptureTab /> : <GalleryTab />}
+      </div>
+
+      <div className={styles.tabs}>
+        <button
+          type="button"
+          className={`${styles.tab} ${activeTab === "capture" ? styles.tabActive : ""}`}
+          onClick={() => setActiveTab("capture")}
+        >
+          <span className={styles.tabIcon}>
+            <i className="ti ti-camera" aria-hidden="true" />
+          </span>
+          <span className={styles.tabLabel}>Capture</span>
+        </button>
+        <button
+          type="button"
+          className={`${styles.tab} ${activeTab === "gallery" ? styles.tabActive : ""}`}
+          onClick={() => setActiveTab("gallery")}
+        >
+          <span className={styles.tabIcon}>
+            <i className="ti ti-layout-grid" aria-hidden="true" />
+          </span>
+          <span className={styles.tabLabel}>Gallery</span>
+        </button>
+      </div>
     </main>
   );
 }

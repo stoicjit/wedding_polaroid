@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-dm-sans: "DM Sans", "Segoe UI", Arial, sans-serif;
 }
 
 @theme inline {
@@ -12,15 +14,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dm-sans);
+  color-scheme: light;
+  min-height: 100vh;
 }

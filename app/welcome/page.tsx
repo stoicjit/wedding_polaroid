@@ -9,7 +9,7 @@ const polaroids = [
   { src: "/photos/photo1.jpg", rotate: "-8deg", top: "2%", left: "-6%" },
   { src: "/photos/photo2.png", rotate: "9deg", top: "1%", right: "-4%" },
   { src: "/photos/photo3.jpg", rotate: "-5deg", top: "35%", left: "-8%" },
-  { src: "/photos/photo4.jpg", rotate: "7deg", top: "37%", right: "-6%" },
+  { src: "/photos/photo4.png", rotate: "7deg", top: "37%", right: "-6%" },
   { src: "/photos/photo3.jpg", rotate: "-4deg", bottom: "7%", left: "-3%" },
   { src: "/photos/photo1.jpg", rotate: "4deg", bottom: "7%", right: "-6%" },
 ];
@@ -20,8 +20,6 @@ export default function Welcome() {
 
   return (
     <main className={styles.root}>
-      <div className={styles.topBar} />
-
       {polaroids.map((p, i) => (
         <div
           key={i}
@@ -52,9 +50,9 @@ export default function Welcome() {
         <p className={styles.eyebrow}>{t("welcome.eyebrow")}</p>
 
         <h1 className={styles.names}>
-          Idan
+          <span className={styles.nameLine}>Gurdeep</span>
           <span className={styles.amp}>&amp;</span>
-          Gurdeep
+          <span className={styles.nameLine}>Idan</span>
         </h1>
 
         <div className={styles.divider}>
@@ -76,8 +74,6 @@ export default function Welcome() {
           {t("welcome.enter")}
         </button>
       </div>
-
-      <div className={styles.bottomBar} />
     </main>
   );
 }

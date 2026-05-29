@@ -1,27 +1,59 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import NameGate from "@/components/NameGate";
 import { useI18n } from "@/components/I18nProvider";
+import { saveGuestName } from "@/lib/guest";
+import styles from "./page.module.css";
 
 export default function Instructions() {
   const router = useRouter();
   const { t } = useI18n();
+  const [name, setName] = useState("");
+
+  const activeName = name.trim();
+
+  const enterCelebration = () => {
+    saveGuestName(activeName);
+    router.push("/app");
+  };
 
   return (
-    <main className="h-screen flex flex-col items-center justify-center bg-black text-white p-6 text-center gap-6">
-      <h1 className="text-xl">{t("instructions.title")}</h1>
+    <main className={styles.root}>
+      <div className={styles.shell}>
+        <section className={styles.hero}>
+          <div className={styles.heroInner}>
+            <p className={styles.eyebrow}>{t("instructions.eyebrow")}</p>
+            <h1 className={styles.title}>
+              {t("instructions.titleLead")} <span>{t("instructions.titleAccent")}</span>
+            </h1>
 
-      <p className="opacity-70 max-w-sm">{t("instructions.body")}</p>
+            <div className={styles.copy}>
+              <p className={styles.body}>{t("instructions.body")}</p>
+              <p className={styles.notes}>{t("instructions.notes")}</p>
+            </div>
+          </div>
+        </section>
 
-      <NameGate />
-
-      <button
-        onClick={() => router.push("/app")}
-        className="bg-white text-black px-4 py-2 rounded w-full max-w-xs"
-      >
-        {t("instructions.enterEvent")}
-      </button>
+        <section className={styles.bottom}>
+          <div className={styles.bottomInner}>
+            <div className={styles.divider} />
+            <h2 className={styles.nameTitle}>{t("instructions.nameTitle")}</h2>
+            <NameGate value={name} onChange={setName} />
+            <div className={styles.ctaRow}>
+              <button
+                type="button"
+                disabled={!activeName}
+                onClick={enterCelebration}
+                className={styles.continue}
+              >
+                {t("instructions.enterEvent")}
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

@@ -19,9 +19,14 @@
     "photoAlt": "Idan veGurdeep"
   },
   "instructions": {
-    "title": "Eich ze oved",
-    "body": "Ha'alu ad 20 tmynot meha'irua. Kulam yekholim lirot et hazikhronot ha'meshutafim bizman emet.",
-    "enterEvent": "Knisa la'irua"
+    "eyebrow": "Kama milim lifnei shematchilim",
+    "titleLead": "Lifnei she'nichnasim",
+    "titleAccent": "la'chagiga",
+    "body": "Efshar le'shatek ad 20 tmuna me'ha'layla. Kol zikaron she'ta'alu kan yira le'kulam, kedei she'ha'chagiga tisha'er meshutefet v'yafa.",
+    "notes": "Ttse'u tmuna achshav o t'alu achat acharei.",
+    "nameTitle": "Hashem shelkhem",
+    "nameLabel": "Hashem shelkhem",
+    "enterEvent": "Knesa la'chagiga"
   },
   "nameGate": {
     "placeholder": "Hashem shelkha",
@@ -29,7 +34,9 @@
   },
   "app": {
     "loading": "Toen...",
-    "placeholder": "Hazikhronot ha'meshutafim yofi'u kan bekarov."
+    "placeholder": "Hazikhronot ha'meshutafim yofi'u kan bekarov.",
+    "linkedTo": "Ha'tmunot yu'gvru le {name}.",
+    "linkPrompt": "Hosefu et hashem shelkhem be'maslul ha'horaot k'dei le'khasher et ha'tmunot."
   },
   "upload": {
     "upload": "Ha'ala"

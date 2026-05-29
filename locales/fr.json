@@ -19,9 +19,14 @@
     "photoAlt": "Idan et Gurdeep"
   },
   "instructions": {
-    "title": "Comment ca marche",
-    "body": "Televersez jusqu'a 20 photos de l'evenement. Tout le monde peut voir les souvenirs partages en temps reel.",
-    "enterEvent": "Entrer dans l'evenement"
+    "eyebrow": "Quelques mots avant de commencer",
+    "titleLead": "Avant d'entrer dans",
+    "titleAccent": "la celebration",
+    "body": "Vous pouvez partager jusqu'a 20 photos de la soiree. Chaque souvenir publie est visible par tout le monde ici, pour garder la celebration chaleureusement partagee.",
+    "notes": "Prenez une photo maintenant ou revenez plus tard pour en televerser une.",
+    "nameTitle": "Votre nom",
+    "nameLabel": "Votre nom",
+    "enterEvent": "Entrer dans la celebration"
   },
   "nameGate": {
     "placeholder": "Votre nom",
@@ -29,7 +34,9 @@
   },
   "app": {
     "loading": "Chargement...",
-    "placeholder": "Les souvenirs partages apparaitront bientot ici."
+    "placeholder": "Les souvenirs partages apparaitront bientot ici.",
+    "linkedTo": "Les photos seront associees a {name}.",
+    "linkPrompt": "Ajoutez votre nom sur l'ecran d'instructions pour associer vos photos."
   },
   "upload": {
     "upload": "Televerser"

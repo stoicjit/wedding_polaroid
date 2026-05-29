@@ -19,9 +19,14 @@
     "photoAlt": "Idan and Gurdeep"
   },
   "instructions": {
-    "title": "How it works",
-    "body": "Upload up to 20 photos from the event. Everyone can see shared memories in real time.",
-    "enterEvent": "Enter Event"
+    "eyebrow": "A few gentle notes",
+    "titleLead": "Before you step into",
+    "titleAccent": "the celebration",
+    "body": "You can share up to 20 photos from the night. Every memory you post is visible to everyone here, so the celebration stays beautifully shared.",
+    "notes": "Take a photo now or come back later to upload one.",
+    "nameTitle": "Your name",
+    "nameLabel": "Your name",
+    "enterEvent": "Enter the celebration"
   },
   "nameGate": {
     "placeholder": "Your name",
@@ -29,7 +34,9 @@
   },
   "app": {
     "loading": "Loading...",
-    "placeholder": "Shared memories will appear here soon."
+    "placeholder": "Shared memories will appear here soon.",
+    "linkedTo": "Photos will be linked to {name}.",
+    "linkPrompt": "Add your name on the instructions screen so your photos are paired with you."
   },
   "upload": {
     "upload": "Upload"
