@@ -38,7 +38,22 @@ export default function CaptureTab() {
     let cancelled = false;
     const videoElement = videoRef.current;
 
+    function stopCameraStream() {
+      if (videoElement) {
+        videoElement.srcObject = null;
+      }
+
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+      setCameraReady(false);
+    }
+
     async function startCamera() {
+      if (selectedFile) {
+        stopCameraStream();
+        return;
+      }
+
       if (typeof window === "undefined") {
         return;
       }
@@ -58,10 +73,7 @@ export default function CaptureTab() {
       }
 
       setCameraError("");
-      setCameraReady(false);
-
-      streamRef.current?.getTracks().forEach((track) => track.stop());
-      streamRef.current = null;
+      stopCameraStream();
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -101,15 +113,9 @@ export default function CaptureTab() {
 
     return () => {
       cancelled = true;
-
-      if (videoElement) {
-        videoElement.srcObject = null;
-      }
-
-      streamRef.current?.getTracks().forEach((track) => track.stop());
-      streamRef.current = null;
+      stopCameraStream();
     };
-  }, [facingMode]);
+  }, [facingMode, selectedFile]);
 
   useEffect(() => {
     return () => {
@@ -247,7 +253,9 @@ export default function CaptureTab() {
           <div className={styles.cameraStage}>
             <video
               ref={videoRef}
-              className={styles.cameraFeed}
+              className={`${styles.cameraFeed} ${
+                facingMode === "user" ? styles.cameraFeedMirrored : ""
+              }`}
               autoPlay
               muted
               playsInline
