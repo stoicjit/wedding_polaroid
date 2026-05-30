@@ -1,6 +1,6 @@
 .root {
   position: relative;
-  min-height: 100vh;
+  height: 100svh;
   width: 100%;
   overflow: hidden;
   background: #faf7f2 url('/photos/att.Um5AYo6U4oJp0EcqIKGWoL80kvfLpQJTWZF9O6jKW-o.jpeg') center center / cover no-repeat;
@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   padding: 56px 24px 72px;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-dm-sans);
 }
 
 .polaroidWrap {
@@ -51,23 +51,22 @@
 }
 
 .eyebrow {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-imperial-script);
   font-size: clamp(1.35rem, 2vw, 2.15rem);
-  letter-spacing: 0.045em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: #4e651d;
   margin-bottom: 10px;
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.15;
 }
 
 .names {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-imperial-script);
   font-size: clamp(4.75rem, 8vw, 8.2rem);
   font-weight: 400;
-  font-style: italic;
   color: #5e4731;
-  line-height: 0.9;
+  line-height: 0.82;
   letter-spacing: 0;
   margin: 0;
 }
@@ -78,7 +77,7 @@
 
 .amp {
   display: block;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-imperial-script);
   font-size: clamp(3rem, 4.5vw, 4.5rem);
   font-style: normal;
   font-weight: 500;
@@ -111,18 +110,18 @@
 }
 
 .welcomeText {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-imperial-script);
   font-size: clamp(1.9rem, 2.8vw, 3.2rem);
   font-style: normal;
   font-weight: 400;
   color: #4f651d;
-  line-height: 1.08;
+  line-height: 1.12;
   max-width: 20ch;
   text-wrap: balance;
 }
 
 .subText {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-cormorant);
   font-size: clamp(1.3rem, 1.9vw, 2.25rem);
   font-weight: 300;
   color: #4f651d;
@@ -133,9 +132,8 @@
 }
 
 .dateText {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-imperial-script);
   font-size: clamp(2.2rem, 3.2vw, 4rem);
-  font-style: italic;
   font-weight: 400;
   color: #5c4a37;
   letter-spacing: 0;
@@ -144,7 +142,7 @@
 }
 
 .enterBtn {
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-dm-sans);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 4px;

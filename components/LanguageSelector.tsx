@@ -1,18 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { useI18n } from "@/components/I18nProvider";
 import type { Locale } from "@/lib/i18n";
 
 export default function LanguageSelector() {
   const { locale, setLocale, t } = useI18n();
-  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  if (pathname === "/welcome" || pathname === "/") {
-    return null;
-  }
 
   const languages: { code: Locale; label: string }[] = [
     { code: "en", label: t("common.english") },

@@ -3,8 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-cormorant: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-dm-sans: "DM Sans", "Segoe UI", Arial, sans-serif;
+  --font-cormorant: "Cormorant Garamond";
+  --font-dm-sans: "DM Sans";
 }
 
 @theme inline {

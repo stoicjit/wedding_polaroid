@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Mariage d'Idan et Gurdeep",
-    "description": "Bienvenue a la celebration"
+    "description": "Bienvenue à la celebration"
   },
   "common": {
     "languageLabel": "Langue",
@@ -11,7 +11,7 @@
     "hebrew": "Hebreu"
   },
   "welcome": {
-    "eyebrow": "Bienvenue a la celebration de",
+    "eyebrow": "Bienvenue à la celebration de",
     "welcomeText": "Nous sommes tres heureux de vous avoir avec nous ce soir.",
     "subText": "Cette petite appli nous aidera a capturer nos souvenirs toute la soiree - chaque instant, chaque rire, chaque moment.",
     "dateText": "Septembre 2026",

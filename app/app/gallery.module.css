@@ -5,7 +5,7 @@
   height: 100dvh;
   width: 100%;
   background: #faf7f2;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-dm-sans);
   overflow: hidden;
   position: relative;
 }
@@ -20,7 +20,7 @@
 }
 
 .headerTitle {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
   color: #1e140a;
   letter-spacing: 0.3px;
@@ -47,6 +47,7 @@
   border-top: 0.5px solid #e2d0b8;
   background: #faf7f2;
   flex-shrink: 0;
+  height: 80px;
 }
 
 .tab {
@@ -98,6 +99,53 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  gap: 14px;
+  padding: 12px 12px 18px;
+}
+
+.cameraStage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #0f0d0b;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+}
+
+.cameraFeed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cameraOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 18px;
+  pointer-events: none;
+}
+
+.cameraMessage,
+.cameraHint {
+  max-width: 20ch;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 13, 11, 0.48);
+  color: rgba(255, 248, 240, 0.95);
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.cameraHint {
+  background: rgba(30, 20, 10, 0.42);
 }
 
 .viewfinder {
@@ -120,8 +168,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 28px;
-  padding: 24px 0 32px;
+  gap: 18px;
+  padding: 2px 6px 0;
 }
 
 .captureDraft {
@@ -171,7 +219,7 @@
   background: #fff;
   padding: 10px 12px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;
   color: #1e140a;
   outline: none;
 }
@@ -251,6 +299,34 @@
   cursor: not-allowed;
 }
 
+.switchBtn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.switchBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.switchIcon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .shutterBtn {
   width: 66px;
   height: 66px;
@@ -297,7 +373,7 @@
   border: none;
   outline: none;
   background: none;
-  font-size: 13px;
+  font-size: 16px;
   color: #1e140a;
   width: 100%;
   font-family: inherit;
@@ -324,6 +400,9 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 }
 
 .galleryScroll::-webkit-scrollbar {
@@ -381,7 +460,7 @@
   line-height: 1.4;
   min-height: 38px;
   min-width: 100%;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-cormorant);
 }
 
 .polaroidNoteEmpty {
@@ -506,10 +585,10 @@
 }
 
 .fsNote {
-  font-size: 14px;
+  font-size: 16px;
   font-style: italic;
   color: #3d2b14;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-cormorant);
   line-height: 1.65;
   border-left: 2px solid #e2d0b8;
   padding-left: 12px;
@@ -536,7 +615,7 @@
   background: #fff;
   padding: 10px 12px;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 16px;
   color: #1e140a;
   outline: none;
 }

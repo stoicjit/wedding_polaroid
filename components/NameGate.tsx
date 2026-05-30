@@ -21,7 +21,7 @@ export default function NameGate({ value, onChange }: NameGateProps) {
         onChange={(event: ChangeEvent<HTMLInputElement>) =>
           onChange(event.target.value)
         }
-        className="w-full rounded-full border border-[#cabaa6] bg-[#fbf7f1] px-4 py-3 text-[#332613] outline-none transition placeholder:text-[#9d8b73] focus:border-[#8b6e52]"
+        className="w-full rounded-full border border-[#cabaa6] bg-[#fbf7f1] px-4 py-3 text-base text-[#332613] outline-none transition placeholder:text-[#9d8b73] focus:border-[#8b6e52]"
         placeholder={t("nameGate.placeholder")}
       />
     </div>

@@ -11,8 +11,21 @@ import { MAX_NOTE_LENGTH, isPhotoNoteValid } from "@/lib/photos";
 import { useAnonymousAuth } from "@/lib/useAnonymousAuth";
 import styles from "./gallery.module.css";
 
+type FacingMode = "environment" | "user";
+
+async function canvasToBlob(canvas: HTMLCanvasElement) {
+  return new Promise<Blob | null>((resolve) => {
+    canvas.toBlob((blob) => resolve(blob), "image/jpeg", 0.95);
+  });
+}
+
 export default function CaptureTab() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const [facingMode, setFacingMode] = useState<FacingMode>("environment");
+  const [cameraReady, setCameraReady] = useState(false);
+  const [cameraError, setCameraError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState("");
@@ -20,6 +33,83 @@ export default function CaptureTab() {
   const [sendError, setSendError] = useState("");
   const guestName = useGuestName();
   const { currentUid, authReady } = useAnonymousAuth();
+
+  useEffect(() => {
+    let cancelled = false;
+    const videoElement = videoRef.current;
+
+    async function startCamera() {
+      if (typeof window === "undefined") {
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        setCameraError(
+          "Camera access needs HTTPS or localhost. On a phone, open the deployed site or an HTTPS tunnel.",
+        );
+        return;
+      }
+
+      if (!navigator.mediaDevices?.getUserMedia) {
+        setCameraError(
+          "This browser does not support live camera access in this context.",
+        );
+        return;
+      }
+
+      setCameraError("");
+      setCameraReady(false);
+
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: false,
+          video: {
+            facingMode: { ideal: facingMode },
+          },
+        });
+
+        if (cancelled) {
+          stream.getTracks().forEach((track) => track.stop());
+          return;
+        }
+
+        streamRef.current = stream;
+
+        if (videoElement) {
+          videoElement.srcObject = stream;
+          await videoElement.play().catch(() => undefined);
+        }
+
+        setCameraReady(true);
+      } catch (error) {
+        if (cancelled) return;
+
+        setCameraError(
+          error instanceof Error && error.name === "NotAllowedError"
+            ? "Camera access is needed to take photos."
+            : error instanceof Error && error.name === "NotFoundError"
+              ? "No camera was found on this device."
+            : "We could not open the camera.",
+        );
+      }
+    }
+
+    startCamera();
+
+    return () => {
+      cancelled = true;
+
+      if (videoElement) {
+        videoElement.srcObject = null;
+      }
+
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    };
+  }, [facingMode]);
 
   useEffect(() => {
     return () => {
@@ -38,13 +128,9 @@ export default function CaptureTab() {
     setPreviewUrl("");
     setNote("");
     setSendError("");
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   }
 
-  function handleShutter() {
+  function handleUploadTrigger() {
     fileInputRef.current?.click();
   }
 
@@ -62,6 +148,58 @@ export default function CaptureTab() {
     setPreviewUrl(objectUrl);
     setNote("");
     setSendError("");
+  }
+
+  async function handleCapture() {
+    if (!videoRef.current || !cameraReady) return;
+
+    const video = videoRef.current;
+    const canvas = document.createElement("canvas");
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+
+    if (!width || !height) {
+      setCameraError("The camera is still getting ready.");
+      return;
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      setCameraError("We could not capture this photo.");
+      return;
+    }
+
+    context.drawImage(video, 0, 0, width, height);
+    const blob = await canvasToBlob(canvas);
+
+    if (!blob) {
+      setCameraError("We could not capture this photo.");
+      return;
+    }
+
+    const file = new File([blob], `camera-${Date.now()}.jpg`, {
+      type: "image/jpeg",
+    });
+    const objectUrl = URL.createObjectURL(blob);
+
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+
+    setSelectedFile(file);
+    setPreviewUrl(objectUrl);
+    setNote("");
+    setSendError("");
+  }
+
+  function handleFlipCamera() {
+    if (uploading) return;
+    setFacingMode((currentMode) =>
+      currentMode === "environment" ? "user" : "environment",
+    );
   }
 
   async function handleSend() {
@@ -104,7 +242,66 @@ export default function CaptureTab() {
 
   return (
     <div className={styles.cameraView}>
-      {selectedFile ? (
+      {!selectedFile ? (
+        <>
+          <div className={styles.cameraStage}>
+            <video
+              ref={videoRef}
+              className={styles.cameraFeed}
+              autoPlay
+              muted
+              playsInline
+            />
+
+            <div className={styles.cameraOverlay}>
+              {cameraError ? (
+                <div className={styles.cameraMessage}>{cameraError}</div>
+              ) : cameraReady ? (
+                <div className={styles.cameraHint}>Tap the shutter to capture</div>
+              ) : (
+                <div className={styles.cameraMessage}>Opening camera...</div>
+              )}
+            </div>
+          </div>
+
+          <div className={styles.cameraControls}>
+            <button
+              type="button"
+              className={styles.uploadThumb}
+              onClick={handleUploadTrigger}
+              aria-label="Upload photo from phone"
+              disabled={uploading || !authReady}
+            >
+              <i className="ti ti-photo-up" aria-hidden="true" />
+            </button>
+
+            <button
+              type="button"
+              className={styles.shutterBtn}
+              onClick={handleCapture}
+              aria-label="Take photo"
+              disabled={uploading || !authReady || !cameraReady}
+            >
+              <div className={styles.shutterInner} />
+            </button>
+
+            <button
+              type="button"
+              className={styles.switchBtn}
+              onClick={handleFlipCamera}
+              aria-label="Switch camera"
+              disabled={uploading || !authReady}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.switchIcon}>
+                <path d="M7 7h9.5a3.5 3.5 0 0 1 0 7H13" fill="none" />
+                <path d="M12 4 8.5 7 12 10" fill="none" />
+                <path d="M17 17H7.5a3.5 3.5 0 0 1 0-7H11" fill="none" />
+                <path d="M12 20 15.5 17 12 14" fill="none" />
+              </svg>
+            </button>
+          </div>
+        </>
+      ) : (
         <div className={styles.captureDraft}>
           <div className={styles.capturePolaroid}>
             <div className={styles.capturePhoto}>
@@ -158,48 +355,16 @@ export default function CaptureTab() {
             </button>
           </div>
         </div>
-      ) : (
-        <div className={styles.viewfinder}>
-          <i
-            className="ti ti-camera"
-            aria-hidden="true"
-            style={{ fontSize: 40, color: "rgba(255,255,255,0.2)" }}
-          />
-          <span className={styles.cameraLabel}>Camera</span>
-        </div>
       )}
 
-      <div className={styles.cameraControls}>
-        <button
-          type="button"
-          className={styles.uploadThumb}
-          onClick={() => fileInputRef.current?.click()}
-          aria-label="Upload photo from phone"
-          disabled={uploading || !authReady}
-        >
-          <i className="ti ti-photo-up" aria-hidden="true" />
-        </button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          capture="environment"
-          style={{ display: "none" }}
-          onChange={handleUpload}
-        />
-
-        <button
-          type="button"
-          className={styles.shutterBtn}
-          onClick={handleShutter}
-          aria-label="Take photo"
-          disabled={uploading || !authReady}
-        >
-          <div className={styles.shutterInner} />
-        </button>
-
-        <div style={{ width: 52 }} />
-      </div>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        style={{ display: "none" }}
+        onChange={handleUpload}
+      />
     </div>
   );
 }
