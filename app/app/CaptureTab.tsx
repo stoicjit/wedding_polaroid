@@ -369,7 +369,6 @@ export default function CaptureTab() {
         ref={fileInputRef}
         type="file"
         accept="image/*"
-        capture="environment"
         style={{ display: "none" }}
         onChange={handleUpload}
       />

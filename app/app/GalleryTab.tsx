@@ -132,17 +132,38 @@ export default function GalleryTab() {
     setSelected(photo);
   }
 
+  function getDownloadName() {
+    return `${selected?.name || "photo"}.jpg`;
+  }
+
   async function handleSaveSelectedPhoto() {
     if (!selected?.src) return;
 
     try {
       const response = await fetch(selected.src);
+      if (!response.ok) {
+        throw new Error("Failed to load image");
+      }
+
       const blob = await response.blob();
+
+      const file = new File([blob], getDownloadName(), {
+        type: blob.type || "image/jpeg",
+      });
+
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: selected.name || "Photo",
+        });
+        return;
+      }
+
       const objectUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
 
       link.href = objectUrl;
-      link.download = `${selected.name || "photo"}.jpg`;
+      link.download = getDownloadName();
       link.rel = "noopener";
       document.body.appendChild(link);
       link.click();
