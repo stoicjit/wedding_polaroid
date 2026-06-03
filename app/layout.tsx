@@ -54,11 +54,11 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Wedding",
+    title: "Our Night!",
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/app_icon.jpg",
+    apple: "/app_icon.jpg",
   },
 };
 
