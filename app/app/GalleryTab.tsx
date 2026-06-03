@@ -132,58 +132,11 @@ export default function GalleryTab() {
     setSelected(photo);
   }
 
-  async function getSelectedPhotoBlob() {
-    if (!selected?.src) return;
-
-    const response = await fetch(selected.src);
-    if (!response.ok) {
-      throw new Error("Failed to load image");
-    }
-
-    return response.blob();
-  }
-
-  async function handleDownloadSelectedPhoto() {
+  async function handleCopySelectedPhoto() {
     if (!selected?.src) return;
 
     try {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: selected.name || "Photo",
-            text: selected.note || selected.name || "Photo",
-            url: selected.src,
-          });
-          return;
-        } catch {
-          // Fall through to download below.
-        }
-      }
-
-      const blob = await getSelectedPhotoBlob();
-      if (!blob) return;
-
-      const file = new File([blob], `${selected.name || "photo"}.jpg`, {
-        type: blob.type || "image/jpeg",
-      });
-
-      if (navigator.share && navigator.canShare?.({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: selected.name || "Photo",
-        });
-        return;
-      }
-
-      const objectUrl = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = objectUrl;
-      link.download = `${selected.name || "photo"}.jpg`;
-      link.rel = "noopener";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      await navigator.clipboard.writeText(selected.src);
     } catch {
       window.open(selected.src, "_blank", "noopener,noreferrer");
     }
@@ -307,8 +260,8 @@ export default function GalleryTab() {
             <button
               type="button"
               className={styles.fsSaveOverlay}
-              onClick={() => void handleDownloadSelectedPhoto()}
-              aria-label="Download photo"
+              onClick={() => void handleCopySelectedPhoto()}
+              aria-label="Copy photo link"
             >
               <Image
                 src="/download-icon.svg"
