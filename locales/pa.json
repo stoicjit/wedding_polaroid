@@ -1,14 +1,26 @@
 {
   "meta": {
     "title": "Idan ate Gurdeep da Viyah",
-    "description": "Jashan vich tuhadda swaagat hai"
+    "description": "Jashan vich tuhada swaagat hai"
   },
   "common": {
     "languageLabel": "Bhasha",
     "english": "Angrezi",
     "french": "French",
     "punjabi": "Punjabi",
-    "hebrew": "Ibrani"
+    "hebrew": "Ibrani",
+    "infoLabel": "Jankari",
+    "closeLabel": "Band karo"
+  },
+  "info": {
+    "eyebrow": "Jaldi jankari",
+    "title": "Event info",
+    "instructionsTitle": "App kiven vartni",
+    "instructionsBodyOne": "Sirf 20 photos har guest layi allowed ne.",
+    "instructionsBodyTwo": "Har photo naal ik chhoti note vi chhad sakde ho, phir ohnu sanjhi gallery vich bhejo.",
+    "uploadTitle": "Upload window",
+    "uploadBody": "Tuhade kol photos upload karan layi 24 ghante da window hovega, taan jo tusi apne yaadgar lamhe araam naal sanjhe kar sako.",
+    "noteBody": "Je kujh theek na lagge, app refresh karo ya home screen ton dobara kholo."
   },
   "welcome": {
     "eyebrow": "jashan vich tuhadda swaagat hai",
@@ -28,31 +40,31 @@
     "iosStepThree": "Nave icon ton app kholo.",
     "greetingEyebrow": "Swagat hai",
     "greetingText": "Assi tuhanu dekh ke bahut khush haan.",
-    "greetingSubText": "Apna naam add karo taan jo tuhade photos poori raat tuhade naal jure rahen.",
-    "noteOne": "Har bande lai max 30 photos.",
-    "noteTwo": "Tusi har photo te ik note v jod sakde ho.",
+    "greetingSubText": "Apna naam jodo taan jo tuhadiyan photos tuhade naal juriyan rehan poori shaam.",
+    "noteOne": "Har bande layi max 30 photos.",
+    "noteTwo": "Tusi har photo te note vi add kar sakde ho.",
     "enterEvent": "Andar jao",
-    "photoAlt": "Idan ate Gurdeep"
+    "photoAlt": "Idan te Gurdeep"
   },
   "instructions": {
-    "eyebrow": "Shuru karan ton pehlan kujh gallan",
-    "titleLead": "Jashan vich parn ton pehlan",
-    "titleAccent": "ik nazar",
-    "body": "Tusi raat ton 20 tak photoan share kar sakde ho. Har yaad jo tusi post karoge, oh ithhe sab lai dikhdi hai, taan ke jashan sanjha te pyara bane.",
-    "notes": "Hune photo lo ya baad vich upload karo.",
+    "eyebrow": "Kujh chhotiyaan gallan pehlan",
+    "titleLead": "Jashan vich dakhil hon ton pehlan",
+    "titleAccent": "dyaan rakho",
+    "body": "Tusi shaam de douran 20 photos tak share kar sakde ho. Har yaad sab de layi nazar aundi hai, taan jo jashan sanjha te sohna rahe.",
+    "notes": "Hun photo lo ya thodi der baad wapas aa ke upload karo.",
     "nameTitle": "Tuhada naam",
     "nameLabel": "Tuhada naam",
-    "enterEvent": "Jashan vich dakhil hovo"
+    "enterEvent": "Jashan vich dakhil ho"
   },
   "nameGate": {
     "placeholder": "Tuhada naam",
-    "save": "Sambhalo"
+    "save": "Save karo"
   },
   "app": {
     "loading": "Load ho reha hai...",
-    "placeholder": "Sanjhian yaadan jaldi ithe nazar aaungan.",
-    "linkedTo": "Photoan {name} naal juriyaan jaan giyaan.",
-    "linkPrompt": "Apna naam greeting vich pao taan jo photoan tuhade naal juriyaan hon."
+    "placeholder": "Sanjhe yaadgar lamhe jald hi ithhe nazar aunge.",
+    "linkedTo": "Photos {name} naal link hon ge.",
+    "linkPrompt": "Apna naam welcome message vich jodo taan jo photos tuhade naal link ho jaan."
   },
   "upload": {
     "upload": "Upload"

@@ -166,8 +166,14 @@
   margin: 0;
 }
 
+.nameLine1 {
+  display: block;
+  margin-right: 0.3em;
+}
+
 .nameLine {
   display: block;
+  margin-left: 0.3em;
 }
 
 .amp {

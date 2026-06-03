@@ -5,9 +5,11 @@ import {
   DM_Sans,
   Great_Vibes,
   Imperial_Script,
+  Permanent_Marker,
   Parisienne,
 } from "next/font/google";
 import { I18nProvider } from "@/components/I18nProvider";
+import InfoDialog from "@/components/InfoDialog";
 import LanguageSelector from "@/components/LanguageSelector";
 import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 import en from "@/locales/en.json";
@@ -47,6 +49,12 @@ const greatVibes = Great_Vibes({
   variable: "--font-great-vibes",
 });
 
+const permanentMarker = Permanent_Marker({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-permanent-marker",
+});
+
 export const metadata: Metadata = {
   title: en.meta.title,
   description: en.meta.description,
@@ -79,11 +87,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${dmSans.variable} ${imperialScript.variable} ${allura.variable} ${parisienne.variable} ${greatVibes.variable}`}
+      className={`${cormorantGaramond.variable} ${dmSans.variable} ${imperialScript.variable} ${allura.variable} ${parisienne.variable} ${greatVibes.variable} ${permanentMarker.variable}`}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+      </head>
       <body>
         <ServiceWorkerRegistrar />
         <I18nProvider>
+          <InfoDialog />
           <LanguageSelector />
           {children}
         </I18nProvider>

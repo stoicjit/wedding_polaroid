@@ -1,48 +1,60 @@
 {
   "meta": {
     "title": "Mariage d'Idan et Gurdeep",
-    "description": "Bienvenue a la celebration"
+    "description": "Bienvenue à la célébration"
   },
   "common": {
     "languageLabel": "Langue",
     "english": "Anglais",
-    "french": "Francais",
-    "punjabi": "Punjabi",
-    "hebrew": "Hebreu"
+    "french": "Français",
+    "punjabi": "Pendjabi",
+    "hebrew": "Hébreu",
+    "infoLabel": "Informations",
+    "closeLabel": "Fermer"
+  },
+  "info": {
+    "eyebrow": "Infos rapides",
+    "title": "Infos de l’événement",
+    "instructionsTitle": "Comment utiliser l’appli",
+    "instructionsBodyOne": "Seulement 20 photos sont autorisées par invité.",
+    "instructionsBodyTwo": "Vous pouvez aussi ajouter une petite note à chaque photo avant de la partager avec tout le monde.",
+    "uploadTitle": "Fenêtre d’envoi",
+    "uploadBody": "Vous aurez une fenêtre de 24 heures pour envoyer vos photos, afin de partager vos plus beaux moments sans vous presser.",
+    "noteBody": "Si quelque chose vous semble étrange, actualisez l’appli ou rouvrez-la depuis votre écran d’accueil."
   },
   "welcome": {
-    "eyebrow": "Bienvenue a la celebration",
-    "landingText": "Votre appli pour la soiree pour capturer et partager les moments, une photo polaroid a la fois.",
-    "landingSubText": "Une galerie partagee de moments polaroid.",
+    "eyebrow": "Bienvenue à la célébration",
+    "landingText": "Votre appli pour la soirée afin de capturer et de partager les moments, une photo polaroid à la fois.",
+    "landingSubText": "Une galerie partagée de moments polaroid.",
     "dateText": "Septembre 2026",
     "enter": "Entrer",
-    "enterApp": "Entrer l'appli",
+    "enterApp": "Entrer dans l'appli",
     "installBadge": "Installer d'abord",
-    "installHint": "Gardez l'appli de mariage sur l'ecran d'accueil pour une experience plus fluide.",
+    "installHint": "Gardez l'appli de mariage sur l'écran d'accueil pour une expérience plus fluide.",
     "installDescription": "Votre navigateur peut installer cette appli directement ici.",
     "installCta": "Installer l'appli",
-    "iosInstallHint": "Sur iPhone, ouvrez la feuille de partage puis choisissez Ajouter a l'ecran d'accueil.",
+    "iosInstallHint": "Sur iPhone, ouvrez la feuille de partage puis choisissez Ajouter à l'écran d'accueil.",
     "iosShareLabel": "Partage Safari",
     "iosStepOne": "Touchez le bouton Partager dans Safari.",
-    "iosStepTwo": "Choisissez Ajouter a l'ecran d'accueil.",
-    "iosStepThree": "Ouvrez l'appli depuis la nouvelle icone.",
+    "iosStepTwo": "Choisissez Ajouter à l'écran d'accueil.",
+    "iosStepThree": "Ouvrez l’appli depuis la nouvelle icône.",
     "greetingEyebrow": "Bienvenue",
     "greetingText": "Nous sommes tellement heureux de vous avoir ici.",
-    "greetingSubText": "Ajoutez votre nom pour que vos photos restent associees a vous toute la soiree.",
+    "greetingSubText": "Ajoutez votre nom pour que vos photos restent associées à vous tout au long de la soirée.",
     "noteOne": "30 photos max par personne.",
-    "noteTwo": "Vous pouvez ajouter une note a chaque photo.",
+    "noteTwo": "Vous pouvez ajouter une note à chaque photo.",
     "enterEvent": "Entrer",
     "photoAlt": "Idan et Gurdeep"
   },
   "instructions": {
     "eyebrow": "Quelques mots avant de commencer",
     "titleLead": "Avant d'entrer dans",
-    "titleAccent": "la celebration",
-    "body": "Vous pouvez partager jusqu'a 20 photos de la soiree. Chaque souvenir publie est visible par tout le monde ici, pour garder la celebration chaleureusement partagee.",
-    "notes": "Prenez une photo maintenant ou revenez plus tard pour en televerser une.",
+    "titleAccent": "la célébration",
+    "body": "Vous pouvez partager jusqu’à 20 photos pendant la soirée. Chaque souvenir publié est visible par tout le monde ici, pour que la célébration reste chaleureuse et partagée.",
+    "notes": "Prenez une photo maintenant ou revenez plus tard pour en téléverser une.",
     "nameTitle": "Votre nom",
     "nameLabel": "Votre nom",
-    "enterEvent": "Entrer dans la celebration"
+    "enterEvent": "Entrer dans la célébration"
   },
   "nameGate": {
     "placeholder": "Votre nom",
@@ -50,11 +62,11 @@
   },
   "app": {
     "loading": "Chargement...",
-    "placeholder": "Les souvenirs partages apparaitront bientot ici.",
-    "linkedTo": "Les photos seront associees a {name}.",
-    "linkPrompt": "Ajoutez votre nom dans le message d'accueil pour associer vos photos."
+    "placeholder": "Les souvenirs partagés apparaîtront bientôt ici.",
+    "linkedTo": "Les photos seront associées à {name}.",
+    "linkPrompt": "Ajoutez votre nom dans le message de bienvenue pour associer vos photos."
   },
   "upload": {
-    "upload": "Televerser"
+    "upload": "Téléverser"
   }
 }

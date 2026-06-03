@@ -20,16 +20,28 @@
 }
 
 .headerTitle {
-  font-size: 16px;
-  font-weight: 500;
-  color: #1e140a;
-  letter-spacing: 0.3px;
+  font-family: var(--font-imperial-script);
+  font-size: clamp(1.8rem, 5vw, 4rem);
+  font-weight: 400;
+  color: #5e4731;
+  line-height: 0.82;
+  letter-spacing: 0;
+  margin: 0;
 }
 
 .headerSub {
-  font-size: 11px;
-  color: #9a7a58;
-  margin-top: 2px;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(184, 115, 51, 0.08);
+  color: #b87333;
+  font-family: var(--font-dm-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 /* ── Body ── */
@@ -457,14 +469,15 @@
 
 .polaroidNote {
   padding: 8px 4px 10px;
-  font-size: 10px;
-  font-style: italic;
-  color: #9a7a58;
+  font-size: 11px;
+  font-style: normal;
+  color: #050505;
   text-align: center;
   line-height: 1.4;
   min-height: 38px;
   min-width: 100%;
-  font-family: var(--font-cormorant);
+  font-family: var(--font-permanent-marker);
+  letter-spacing: 0.02em;
 }
 
 .polaroidNoteEmpty {
@@ -589,14 +602,15 @@
 }
 
 .fsNote {
-  font-size: 16px;
-  font-style: italic;
+  font-size: 17px;
+  font-style: normal;
   color: #3d2b14;
-  font-family: var(--font-cormorant);
-  line-height: 1.65;
+  font-family: var(--font-permanent-marker);
+  line-height: 1.6;
   border-left: 2px solid #e2d0b8;
   padding-left: 12px;
   margin: 4px 0;
+  letter-spacing: 0.01em;
 }
 
 .fsNoteEditor {

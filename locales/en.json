@@ -8,7 +8,18 @@
     "english": "English",
     "french": "French",
     "punjabi": "Punjabi",
-    "hebrew": "Hebrew"
+    "hebrew": "Hebrew",
+    "infoLabel": "Information",
+    "closeLabel": "Close"
+  },
+  "info": {
+    "eyebrow": "Quick info",
+    "title": "Event info",
+    "instructionsTitle": "How to use the app",
+    "instructionsBodyOne": "Only 20 photos are allowed per guest.",
+    "instructionsBodyTwo": "You can also add a little note to each photo before sharing it with everyone.",
+    "uploadTitle": "Upload window",
+    "uploadBody": "You’ll have a 24-hour window to upload pictures, so there’s plenty of time to share your favorite moments."
   },
   "welcome": {
     "eyebrow": "Welcome to the celebration of",

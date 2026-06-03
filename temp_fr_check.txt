@@ -1,0 +1,72 @@
+﻿{
+  "meta": {
+    "title": "Mariage d'Idan et Gurdeep",
+    "description": "Bienvenue Ã  la cÃ©lÃ©bration"
+  },
+  "common": {
+    "languageLabel": "Langue",
+    "english": "Anglais",
+    "french": "FranÃ§ais",
+    "punjabi": "Pendjabi",
+    "hebrew": "HÃ©breu",
+    "infoLabel": "Informations",
+    "closeLabel": "Fermer"
+  },
+  "info": {
+    "eyebrow": "Infos rapides",
+    "title": "Infos de lâ€™Ã©vÃ©nement",
+    "instructionsTitle": "Comment utiliser lâ€™appli",
+    "instructionsBodyOne": "Seulement 20 photos sont autorisÃ©es par invitÃ©.",
+    "instructionsBodyTwo": "Vous pouvez aussi ajouter une petite note Ã  chaque photo avant de la partager avec tout le monde.",
+    "uploadTitle": "FenÃªtre dâ€™envoi",
+    "uploadBody": "Vous aurez une fenÃªtre de 24 heures pour envoyer vos photos, afin de partager vos plus beaux moments sans vous presser."
+  },
+  "welcome": {
+    "eyebrow": "Bienvenue a la celebration",
+    "landingText": "Votre appli pour la soiree pour capturer et partager les moments, une photo polaroid a la fois.",
+    "landingSubText": "Une galerie partagee de moments polaroid.",
+    "dateText": "Septembre 2026",
+    "enter": "Entrer",
+    "enterApp": "Entrer l'appli",
+    "installBadge": "Installer d'abord",
+    "installHint": "Gardez l'appli de mariage sur l'ecran d'accueil pour une experience plus fluide.",
+    "installDescription": "Votre navigateur peut installer cette appli directement ici.",
+    "installCta": "Installer l'appli",
+    "iosInstallHint": "Sur iPhone, ouvrez la feuille de partage puis choisissez Ajouter a l'ecran d'accueil.",
+    "iosShareLabel": "Partage Safari",
+    "iosStepOne": "Touchez le bouton Partager dans Safari.",
+    "iosStepTwo": "Choisissez Ajouter a l'ecran d'accueil.",
+    "iosStepThree": "Ouvrez l'appli depuis la nouvelle icone.",
+    "greetingEyebrow": "Bienvenue",
+    "greetingText": "Nous sommes tellement heureux de vous avoir ici.",
+    "greetingSubText": "Ajoutez votre nom pour que vos photos restent associees a vous toute la soiree.",
+    "noteOne": "30 photos max par personne.",
+    "noteTwo": "Vous pouvez ajouter une note a chaque photo.",
+    "enterEvent": "Entrer",
+    "photoAlt": "Idan et Gurdeep"
+  },
+  "instructions": {
+    "eyebrow": "Quelques mots avant de commencer",
+    "titleLead": "Avant d'entrer dans",
+    "titleAccent": "la celebration",
+    "body": "Vous pouvez partager jusqu'a 20 photos de la soiree. Chaque souvenir publie est visible par tout le monde ici, pour garder la celebration chaleureusement partagee.",
+    "notes": "Prenez une photo maintenant ou revenez plus tard pour en televerser une.",
+    "nameTitle": "Votre nom",
+    "nameLabel": "Votre nom",
+    "enterEvent": "Entrer dans la celebration"
+  },
+  "nameGate": {
+    "placeholder": "Votre nom",
+    "save": "Enregistrer"
+  },
+  "app": {
+    "loading": "Chargement...",
+    "placeholder": "Les souvenirs partages apparaitront bientot ici.",
+    "linkedTo": "Les photos seront associees a {name}.",
+    "linkPrompt": "Ajoutez votre nom dans le message d'accueil pour associer vos photos."
+  },
+  "upload": {
+    "upload": "Televerser"
+  }
+}
+

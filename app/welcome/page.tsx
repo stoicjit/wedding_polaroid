@@ -132,7 +132,7 @@ export default function Welcome() {
         <p className={styles.eyebrow}>{t("welcome.eyebrow")}</p>
 
         <h1 className={styles.names}>
-          <span className={styles.nameLine}>Gurdeep</span>
+          <span className={styles.nameLine1}>Gurdeep</span>
           <span className={styles.amp}>&amp;</span>
           <span className={styles.nameLine}>Idan</span>
         </h1>

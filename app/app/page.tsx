@@ -14,7 +14,7 @@ export default function GalleryPage() {
     <main className={styles.root}>
       <div className={styles.header}>
         <p className={styles.headerTitle}>Gurdeep &amp; Idan</p>
-        <p className={styles.headerSub}>September 2026</p>
+        <p className={styles.headerSub}>13.09.2026</p>
       </div>
 
       <div className={styles.body}>

@@ -1,60 +1,72 @@
 {
   "meta": {
     "title": "HaChatuna shel Idan veGurdeep",
-    "description": "Brukhim haba'im laChagiga"
+    "description": "ברוכים הבאים לחגיגה"
   },
   "common": {
-    "languageLabel": "Safa",
-    "english": "Anglit",
-    "french": "Tzarfatit",
-    "punjabi": "Punjabit",
-    "hebrew": "Ivrit"
+    "languageLabel": "שפה",
+    "english": "אנגלית",
+    "french": "צרפתית",
+    "punjabi": "פונגבית",
+    "hebrew": "עברית",
+    "infoLabel": "מידע",
+    "closeLabel": "סגור"
+  },
+  "info": {
+    "eyebrow": "מידע חיר",
+    "title": "מידע על הערב",
+    "instructionsTitle": "איך להתשמש באייפ",
+    "instructionsBodyOne": "רק 20 תמונות מותרות לכל אורח.",
+    "instructionsBodyTwo": "אפשר גם להוסיף הערה קטנה לכל תמונה לפני שמשלחים אותן לכולם.",
+    "uploadTitle": "חולן ההעלאות",
+    "uploadBody": "בשארית של 24 שעות להעלות תמונות, כדי שתיוכלו לשתף את הרגעים היפים שלכם בנחות.",
+    "noteBody": "אם משהו לא נראה תקין, רעננו את האייפ או פתחו אותה מחדש מסדרה."
   },
   "welcome": {
-    "eyebrow": "Brukhim haba'im laChagiga",
-    "landingText": "Ha-app shelkhem la-laila kedei litfos uleshatek rega'im, polaroid achad akhar ha-sheni.",
-    "landingSubText": "Galeria meshutefet shel rega'im polaroid.",
+    "eyebrow": "ברוכים הבאים לחגיגה",
+    "landingText": "האייפ שלכם ללילה כדי לתפוס ולשתף רגעים, אחת אחת.",
+    "landingSubText": "גלריה משותפת של רגעים.",
     "dateText": "September 2026",
-    "enter": "Knisa",
-    "enterApp": "Knsu la'app",
-    "installBadge": "Kodm kol le-hatkin",
-    "installHint": "Shimu et appat ha-chatuna al mashek ha-bayit le-experience chalaqah yoter.",
-    "installDescription": "Ha-dapdefan shelkhem yachol le-hatkin et ha-app mikan.",
-    "installCta": "Hatken et ha-app",
-    "iosInstallHint": "Be-iPhone, petach et masheket ha-share u-vchar Hosef le-Meshek HaBayit.",
-    "iosShareLabel": "Share shel Safari",
-    "iosStepOne": "Tikra et kvutsat Share be-Safari.",
-    "iosStepTwo": "Bechar Hosef le-Meshek HaBayit.",
-    "iosStepThree": "Petach et ha-app meha-icona ha-chadasha.",
-    "greetingEyebrow": "Brukhim habaim",
-    "greetingText": "Anachnu same'achim me'od she'atem po.",
-    "greetingSubText": "Hosifu et shimkhem kedei she'ha-tmunot yishar'u mechubarot aleikhem kol ha-laila.",
-    "noteOne": "Ad 30 tmunot le'ish.",
-    "noteTwo": "Efshar lehosif kvutza le-khol tmuna.",
-    "enterEvent": "Knisa",
-    "photoAlt": "Idan veGurdeep"
+    "enter": "כניסה",
+    "enterApp": "כנסו לאייפ",
+    "installBadge": "קודם כל להתקין",
+    "installHint": "שמרו את אייפת החתונה על מסך הבית לחוויה נחה יותר.",
+    "installDescription": "הדפדפן שלכם יכול להתקין את האייפ מכאן.",
+    "installCta": "התקן את האייפ",
+    "iosInstallHint": "ב-iPhone, פתחו את משלחת השיתוף ובחרו הוסף למסך הבית.",
+    "iosShareLabel": "Safari Share",
+    "iosStepOne": "לחצו על כפתור השיתוף ב-Safari.",
+    "iosStepTwo": "בחרו הוסף למסך הבית.",
+    "iosStepThree": "פתחו את האייפ מהאיקון החדשה.",
+    "greetingEyebrow": "ברוכים",
+    "greetingText": "אנחנו שמחים במיוחד שאתם כאן.",
+    "greetingSubText": "הוסיפו את שמכם כדי שהתמונות שלכם יתחברו אליכם לכל אורך הערב.",
+    "noteOne": "30 photos max par personne.",
+    "noteTwo": "ניתן להוסיף הערה לכל תמונה.",
+    "enterEvent": "כניסה",
+    "photoAlt": "Idan et Gurdeep"
   },
   "instructions": {
-    "eyebrow": "Kama milim lifnei shematchilim",
-    "titleLead": "Lifnei she'nichnasim",
-    "titleAccent": "la'chagiga",
-    "body": "Efshar le'shatek ad 20 tmuna me'ha'layla. Kol zikaron she'ta'alu kan yira le'kulam, kedei she'ha'chagiga tisha'er meshutefet v'yafa.",
-    "notes": "Ttse'u tmuna achshav o t'alu achat acharei.",
-    "nameTitle": "Hashem shelkhem",
-    "nameLabel": "Hashem shelkhem",
-    "enterEvent": "Knesa la'chagiga"
+    "eyebrow": "מטות קטנות לפני שמתחילים",
+    "titleLead": "לפני שמכנסים ל",
+    "titleAccent": "החגיגה",
+    "body": "ניתן לשתף עד 20 תמונות במהלך הערב. כל רגע שמופע חזותי לכולם כאן, למרות שהחגיגה תשאר חמה ומשותפת.",
+    "notes": "אפשר לצלם כעת או לחזור מואר יותר העבר.",
+    "nameTitle": "שם",
+    "nameLabel": "שם",
+    "enterEvent": "כניסה לחגיגה"
   },
   "nameGate": {
-    "placeholder": "Hashem shelkha",
-    "save": "Shmira"
+    "placeholder": "שם",
+    "save": "שמירה"
   },
   "app": {
-    "loading": "Toen...",
-    "placeholder": "Hazikhronot ha'meshutafim yofi'u kan bekarov.",
-    "linkedTo": "Ha'tmunot yu'gvru le {name}.",
-    "linkPrompt": "Hosefu et shimkhem be-hesber ha-briha kedei she'ha-tmunot yu'khsru aleikhem."
+    "loading": "טוען...",
+    "placeholder": "זיכרונות משותפים יופיעו כאן בערב.",
+    "linkedTo": "התמונות יקושרו ל-{name}.",
+    "linkPrompt": "הוסיפו את שמכם בשיר הבית כדי לקשר את התמונות שלכם."
   },
   "upload": {
-    "upload": "Ha'ala"
+    "upload": "העלאה"
   }
 }
