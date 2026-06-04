@@ -164,6 +164,17 @@
   background: rgba(30, 20, 10, 0.42);
 }
 
+.cameraCount {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 13, 11, 0.48);
+  color: rgba(255, 248, 240, 0.95);
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(10px);
+}
+
 .viewfinder {
   flex: 1;
   display: flex;
@@ -552,24 +563,24 @@
   position: absolute;
   right: 14px;
   bottom: 14px;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.72);
-  color: #1e140a;
+  border: 1px solid #dcc7b0;
+  background: rgba(255, 249, 241, 0.94);
+  color: #a87643;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 18px rgba(30, 20, 10, 0.16);
+  box-shadow: 0 8px 20px rgba(30, 20, 10, 0.14);
   backdrop-filter: blur(8px);
   cursor: pointer;
   z-index: 2;
 }
 
 .fsSaveIcon {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   display: block;
   object-fit: contain;
 }

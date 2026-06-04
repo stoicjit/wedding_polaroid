@@ -3,11 +3,23 @@
 import type { ChangeEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+  query as firestoreQuery,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "@/lib/firebase";
 import { useGuestName } from "@/lib/guest";
-import { MAX_NOTE_LENGTH, isPhotoNoteValid } from "@/lib/photos";
+import {
+  MAX_NOTE_LENGTH,
+  MAX_PHOTO_UPLOADS,
+  isPhotoNoteValid,
+} from "@/lib/photos";
 import { useAnonymousAuth } from "@/lib/useAnonymousAuth";
 import styles from "./gallery.module.css";
 
@@ -31,6 +43,7 @@ export default function CaptureTab() {
   const [previewUrl, setPreviewUrl] = useState("");
   const [note, setNote] = useState("");
   const [sendError, setSendError] = useState("");
+  const [photoCount, setPhotoCount] = useState(0);
   const guestName = useGuestName();
   const { currentUid, authReady } = useAnonymousAuth();
 
@@ -116,6 +129,27 @@ export default function CaptureTab() {
       stopCameraStream();
     };
   }, [facingMode, selectedFile]);
+
+  useEffect(() => {
+    if (!authReady || !currentUid) return undefined;
+
+    const photosQuery = firestoreQuery(
+      collection(db, "photos"),
+      where("ownerUid", "==", currentUid),
+    );
+
+    const unsubscribe = onSnapshot(
+      photosQuery,
+      (snapshot) => {
+        setPhotoCount(snapshot.size);
+      },
+      () => {
+        setPhotoCount(0);
+      },
+    );
+
+    return () => unsubscribe();
+  }, [authReady, currentUid]);
 
   useEffect(() => {
     return () => {
@@ -208,6 +242,10 @@ export default function CaptureTab() {
     );
   }
 
+  const limitReached = authReady && currentUid ? photoCount >= MAX_PHOTO_UPLOADS : false;
+  const remainingPhotos = authReady && currentUid ? Math.max(MAX_PHOTO_UPLOADS - photoCount, 0) : MAX_PHOTO_UPLOADS;
+  const remainingCountLabel = `${remainingPhotos}/${MAX_PHOTO_UPLOADS}`;
+
   async function handleSend() {
     if (!selectedFile || !currentUid) return;
 
@@ -221,6 +259,17 @@ export default function CaptureTab() {
     setSendError("");
 
     try {
+      const existingPhotosQuery = firestoreQuery(
+        collection(db, "photos"),
+        where("ownerUid", "==", currentUid),
+      );
+      const existingPhotosSnapshot = await getDocs(existingPhotosQuery);
+
+      if (existingPhotosSnapshot.size >= MAX_PHOTO_UPLOADS) {
+        setSendError(`Only ${MAX_PHOTO_UPLOADS} photos are allowed per guest.`);
+        return;
+      }
+
       const safeFileName = selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
       const filePath = `photos/${currentUid}/${Date.now()}-${safeFileName}`;
       const storageRef = ref(storage, filePath);
@@ -265,7 +314,7 @@ export default function CaptureTab() {
               {cameraError ? (
                 <div className={styles.cameraMessage}>{cameraError}</div>
               ) : cameraReady ? (
-                <div className={styles.cameraHint}>Tap the shutter to capture</div>
+                <div className={styles.cameraCount}>{remainingCountLabel}</div>
               ) : (
                 <div className={styles.cameraMessage}>Opening camera...</div>
               )}
@@ -278,7 +327,7 @@ export default function CaptureTab() {
               className={styles.uploadThumb}
               onClick={handleUploadTrigger}
               aria-label="Upload photo from phone"
-              disabled={uploading || !authReady}
+              disabled={uploading || !authReady || limitReached}
             >
               <i className="ti ti-photo-up" aria-hidden="true" />
             </button>
@@ -288,7 +337,7 @@ export default function CaptureTab() {
               className={styles.shutterBtn}
               onClick={handleCapture}
               aria-label="Take photo"
-              disabled={uploading || !authReady || !cameraReady}
+              disabled={uploading || !authReady || !cameraReady || limitReached}
             >
               <div className={styles.shutterInner} />
             </button>
@@ -298,7 +347,7 @@ export default function CaptureTab() {
               className={styles.switchBtn}
               onClick={handleFlipCamera}
               aria-label="Switch camera"
-              disabled={uploading || !authReady}
+              disabled={uploading || !authReady || limitReached}
             >
               <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.switchIcon}>
                 <path d="M7 7h9.5a3.5 3.5 0 0 1 0 7H13" fill="none" />
@@ -357,7 +406,7 @@ export default function CaptureTab() {
               type="button"
               className={styles.capturePrimary}
               onClick={handleSend}
-              disabled={uploading || !isPhotoNoteValid(note)}
+              disabled={uploading || !isPhotoNoteValid(note) || limitReached}
             >
               {uploading ? "Sending..." : "Send"}
             </button>
