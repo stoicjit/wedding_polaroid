@@ -135,11 +135,7 @@ export default function GalleryTab() {
   async function handleCopySelectedPhoto() {
     if (!selected?.src) return;
 
-    try {
-      await navigator.clipboard.writeText(selected.src);
-    } catch {
-      window.open(selected.src, "_blank", "noopener,noreferrer");
-    }
+    window.open(selected.src, "_blank", "noopener,noreferrer");
   }
 
   return (
