@@ -32,7 +32,6 @@ export default function InstallGate({ onContinue }: InstallGateProps) {
   const [canPromptInstall, setCanPromptInstall] = useState(false);
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
-  const [showShareHint, setShowShareHint] = useState(false);
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (event: Event) => {
@@ -63,29 +62,31 @@ export default function InstallGate({ onContinue }: InstallGateProps) {
   );
 
   const shareArrowCue =
-    showShareHint && typeof document !== "undefined"
+    isIos && typeof document !== "undefined"
       ? createPortal(
-          <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[999] flex justify-center pb-[calc(env(safe-area-inset-bottom)+0.5rem)]">
-            <svg
-              viewBox="0 0 54 84"
-              aria-hidden="true"
-              className="h-20 w-12 animate-pulse text-[#c89b4f] drop-shadow-[0_8px_22px_rgba(168,125,48,0.28)]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <defs>
-                <linearGradient id="shareArrowFade" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-              <path d="M27 8v52" stroke="url(#shareArrowFade)" />
-              <path d="M14 46 27 60l13-14" />
-              <path d="M18 20h18" />
-            </svg>
+          <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[999] flex justify-center pb-[calc(env(safe-area-inset-bottom)+1.75rem)]">
+            <div className="relative flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-[#e2d0b8] bg-[#faf7f2] text-[#9a7a58] shadow-none backdrop-blur-sm">
+              <svg
+                viewBox="0 0 54 84"
+                aria-hidden="true"
+                className="h-7 w-4 text-[#9a7a58]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <defs>
+                  <linearGradient id="shareArrowFade" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="currentColor" stopOpacity="0.28" />
+                    <stop offset="100%" stopColor="currentColor" stopOpacity="1" />
+                  </linearGradient>
+                </defs>
+                <path d="M27 8v52" stroke="url(#shareArrowFade)" />
+                <path d="M14 46 27 60l13-14" />
+                <path d="M18 20h18" />
+              </svg>
+            </div>
           </div>,
           document.body,
         )
@@ -214,7 +215,6 @@ export default function InstallGate({ onContinue }: InstallGateProps) {
               {stepIndex === 0 ? (
                 <button
                   type="button"
-                  onClick={() => setShowShareHint(true)}
                   aria-label={step}
                   className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[#cabaa6] bg-white text-[#1e140a] transition-transform hover:scale-105 active:scale-95"
                 >
