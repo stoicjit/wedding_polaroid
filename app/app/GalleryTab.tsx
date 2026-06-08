@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import Image from "next/image";
 import {
   collection,
@@ -30,6 +36,14 @@ export type Photo = {
 };
 
 type SortOrder = "desc" | "asc";
+type ViewerMode = "photos" | "search";
+type SlideDirection = "next" | "prev";
+
+type SwipePoint = {
+  x: number;
+  y: number;
+  pointerId: number | null;
+};
 
 const ROTATIONS = ["-1.5deg", "1.2deg", "-2deg", "1.8deg", "-1deg", "2.2deg"];
 const PAGE_SIZE = 24;
@@ -106,7 +120,8 @@ function toPhoto(
 export default function GalleryTab() {
   const { t } = useI18n();
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Photo | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [viewerMode, setViewerMode] = useState<ViewerMode>("photos");
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -117,9 +132,15 @@ export default function GalleryTab() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [sortMenuOpen, setSortMenuOpen] = useState(false);
+  const [viewerTransition, setViewerTransition] = useState<SlideDirection | null>(
+    null,
+  );
   const sortMenuRef = useRef<HTMLDivElement | null>(null);
   const galleryScrollRef = useRef<HTMLDivElement | null>(null);
   const loadMoreTriggerRef = useRef<HTMLDivElement | null>(null);
+  const photoCardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const swipeStartRef = useRef<SwipePoint | null>(null);
+  const pendingForwardAdvanceRef = useRef<number | null>(null);
   const searchTerm = query.trim().toLowerCase();
 
   const sortLabel =
@@ -156,7 +177,10 @@ export default function GalleryTab() {
       setLoadingMore(false);
       setHasMore(true);
       setLastVisible(null);
-      setSelected(null);
+      setSelectedIndex(null);
+      setViewerMode("photos");
+      setViewerTransition(null);
+      pendingForwardAdvanceRef.current = null;
 
       try {
         const photosQuery = firestoreQuery(
@@ -195,7 +219,9 @@ export default function GalleryTab() {
   }, [sortOrder]);
 
   const loadMorePhotos = useCallback(async () => {
-    if (loading || loadingMore || !hasMore || !lastVisible) return;
+    if (loading || loadingMore || !hasMore || !lastVisible) {
+      return { loadedCount: 0, canContinue: hasMore };
+    }
 
     setLoadingMore(true);
 
@@ -220,9 +246,13 @@ export default function GalleryTab() {
         ];
       });
       setLastVisible(snapshot.docs[snapshot.docs.length - 1] ?? null);
-      setHasMore(snapshot.docs.length === PAGE_SIZE);
+      const canContinue = snapshot.docs.length === PAGE_SIZE;
+      setHasMore(canContinue);
+
+      return { loadedCount: nextPhotos.length, canContinue };
     } catch {
       setHasMore(false);
+      return { loadedCount: 0, canContinue: false };
     } finally {
       setLoadingMore(false);
     }
@@ -308,13 +338,135 @@ export default function GalleryTab() {
 
   const filtered = searchTerm ? searchResults : photos;
   const isLoading = searchTerm ? searchLoading : loading;
+  const viewerPhotos = viewerMode === "search" ? searchResults : photos;
+  const selected = selectedIndex !== null ? viewerPhotos[selectedIndex] ?? null : null;
+
+  useEffect(() => {
+    const pendingIndex = pendingForwardAdvanceRef.current;
+
+    if (pendingIndex === null || viewerMode !== "photos" || selectedIndex === null) {
+      pendingForwardAdvanceRef.current = null;
+      return;
+    }
+
+    if (selectedIndex !== pendingIndex) {
+      pendingForwardAdvanceRef.current = null;
+      return;
+    }
+
+    if (pendingIndex + 1 < photos.length) {
+      pendingForwardAdvanceRef.current = null;
+      setViewerTransition("next");
+      setSelectedIndex(pendingIndex + 1);
+    }
+  }, [photos.length, selectedIndex, viewerMode]);
+
+  useEffect(() => {
+    if (selectedIndex === null || viewerMode !== "photos") {
+      pendingForwardAdvanceRef.current = null;
+    }
+  }, [selectedIndex, viewerMode]);
 
   function openPhoto(photo: Photo) {
-    setSelected(photo);
+    const currentList = searchTerm ? searchResults : photos;
+    const nextIndex = currentList.findIndex((item) => item.id === photo.id);
+
+    if (nextIndex < 0) {
+      return;
+    }
+
+    pendingForwardAdvanceRef.current = null;
+    setViewerMode(searchTerm ? "search" : "photos");
+    setViewerTransition(null);
+    setSelectedIndex(nextIndex);
   }
 
   function displayName(name: string) {
     return name === "Guest" ? t("guest") : name;
+  }
+
+  function isSwipeExcludedTarget(target: EventTarget | null) {
+    if (!(target instanceof HTMLElement)) {
+      return false;
+    }
+
+    return target.closest("button") !== null;
+  }
+
+  function scrollGalleryToPhoto(photo: Photo | null) {
+    if (!photo) return;
+
+    const cardElement = photoCardRefs.current[photo.id];
+    if (!cardElement) return;
+
+    cardElement.scrollIntoView({
+      block: "center",
+      inline: "center",
+      behavior: "auto",
+    });
+  }
+
+  function beginSwipe(clientX: number, clientY: number, pointerId: number | null) {
+    swipeStartRef.current = { x: clientX, y: clientY, pointerId };
+  }
+
+  async function completeSwipe(
+    clientX: number,
+    clientY: number,
+    pointerId: number | null,
+  ) {
+    const start = swipeStartRef.current;
+    swipeStartRef.current = null;
+
+    if (!start || selectedIndex === null) {
+      return;
+    }
+
+    if (start.pointerId !== null && pointerId !== null && start.pointerId !== pointerId) {
+      return;
+    }
+
+    const deltaX = clientX - start.x;
+    const deltaY = clientY - start.y;
+    const minimumDistance = 40;
+
+    if (Math.abs(deltaX) < minimumDistance || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      const nextIndex = selectedIndex + 1;
+
+      if (nextIndex < viewerPhotos.length) {
+        setViewerTransition("next");
+        setSelectedIndex(nextIndex);
+        return;
+      }
+
+      if (viewerMode !== "photos" || searchTerm || !hasMore) {
+        return;
+      }
+
+      pendingForwardAdvanceRef.current = selectedIndex;
+
+      if (loadingMore) {
+        return;
+      }
+
+      const { canContinue } = await loadMorePhotos();
+
+      if (!canContinue) {
+        pendingForwardAdvanceRef.current = null;
+      }
+      return;
+    }
+
+    const previousIndex = selectedIndex - 1;
+
+    if (previousIndex >= 0) {
+      setViewerTransition("prev");
+      setSelectedIndex(previousIndex);
+    }
   }
 
   async function handleCopySelectedPhoto() {
@@ -417,6 +569,9 @@ export default function GalleryTab() {
                 <div
                   key={photo.id}
                   className={styles.polaroid}
+                  ref={(element) => {
+                    photoCardRefs.current[photo.id] = element;
+                  }}
                   style={{ transform: `rotate(${ROTATIONS[index % ROTATIONS.length]})` }}
                   onClick={() => openPhoto(photo)}
                   role="button"
@@ -470,11 +625,36 @@ export default function GalleryTab() {
       </div>
 
       {selected ? (
-        <div className={styles.fullscreen}>
+        <div
+          className={styles.fullscreen}
+          onPointerDown={(event: ReactPointerEvent<HTMLDivElement>) => {
+            if (isSwipeExcludedTarget(event.target)) {
+              return;
+            }
+
+            beginSwipe(event.clientX, event.clientY, event.pointerId);
+          }}
+          onPointerUp={(event: ReactPointerEvent<HTMLDivElement>) => {
+            if (isSwipeExcludedTarget(event.target)) {
+              swipeStartRef.current = null;
+              return;
+            }
+
+            void completeSwipe(event.clientX, event.clientY, event.pointerId);
+          }}
+          onPointerCancel={() => {
+            swipeStartRef.current = null;
+          }}
+          >
           <button
             type="button"
             className={styles.fsClose}
-            onClick={() => setSelected(null)}
+            onClick={() => {
+              scrollGalleryToPhoto(selected);
+              setSelectedIndex(null);
+              setViewerTransition(null);
+              pendingForwardAdvanceRef.current = null;
+            }}
             aria-label={t("gallery.goBack")}
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.fsCloseIcon}>
@@ -482,48 +662,61 @@ export default function GalleryTab() {
             </svg>
           </button>
 
-          <div className={styles.fsImg}>
-            {selected.src ? (
-              <Image
-                src={selected.src}
-                alt={`${t("gallery.photoBy")} ${displayName(selected.name)}`}
-                fill
-                className={styles.polaroidImgFill}
-                sizes="100vw"
-                unoptimized
-              />
-            ) : (
-              <i
-                className="ti ti-photo"
-                aria-hidden="true"
-                style={{ fontSize: 48, color: "rgba(30,20,10,0.15)" }}
-              />
-            )}
-            <button
-              type="button"
-              className={styles.fsSaveOverlay}
-              onClick={() => void handleCopySelectedPhoto()}
-              aria-label={t("gallery.openPhoto")}
-            >
-              <Image
-                src="/download-icon.svg"
-                alt=""
-                aria-hidden="true"
-                className={styles.fsSaveIcon}
-                width={24}
-                height={24}
-                unoptimized
-              />
-            </button>
-          </div>
+          <button
+            type="button"
+            className={styles.fsSaveOverlay}
+            onClick={() => void handleCopySelectedPhoto()}
+            aria-label={t("gallery.openPhoto")}
+          >
+            <Image
+              src="/download-icon.svg"
+              alt=""
+              aria-hidden="true"
+              className={styles.fsSaveIcon}
+              width={24}
+              height={24}
+              unoptimized
+            />
+          </button>
 
-          <div className={styles.fsBody}>
-            <div>
-              <p className={styles.fsName}>{displayName(selected.name)}</p>
-              <p className={styles.fsTime}>{selected.time}</p>
+          <div
+            key={selected.id}
+            className={`${styles.fsPanel} ${
+              viewerTransition === "next"
+                ? styles.fsPanelNext
+                : viewerTransition === "prev"
+                  ? styles.fsPanelPrev
+                  : ""
+            }`}
+            onAnimationEnd={() => setViewerTransition(null)}
+          >
+            <div className={styles.fsImg}>
+              {selected.src ? (
+                <Image
+                  src={selected.src}
+                  alt={`${t("gallery.photoBy")} ${displayName(selected.name)}`}
+                  fill
+                  className={styles.polaroidImgFill}
+                  sizes="100vw"
+                  unoptimized
+                />
+              ) : (
+                <i
+                  className="ti ti-photo"
+                  aria-hidden="true"
+                  style={{ fontSize: 48, color: "rgba(30,20,10,0.15)" }}
+                />
+              )}
             </div>
-            {selected.note ? <p className={styles.fsNote}>{selected.note}</p> : null}
-            <div className={styles.fsDivider} />
+
+            <div className={styles.fsBody}>
+              <div>
+                <p className={styles.fsName}>{displayName(selected.name)}</p>
+                <p className={styles.fsTime}>{selected.time}</p>
+              </div>
+              {selected.note ? <p className={styles.fsNote}>{selected.note}</p> : null}
+              <div className={styles.fsDivider} />
+            </div>
           </div>
         </div>
       ) : null}
