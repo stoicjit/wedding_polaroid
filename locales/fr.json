@@ -91,6 +91,7 @@
                     "send":  "Envoyer",
                     "uploadsChecking":  "Verification du statut d'envoi...",
                     "uploadsClosed":  "Les envois sont fermes pour le moment.",
+                    "photoLimitReachedNotice":  "Vous avez atteint la limite de photos. Merci d'être venu et d'avoir partagé vos souvenirs.",
                     "noteTooLong":  "Ajoutez une note de {max} caractères maximum.",
                     "photoLimitReached":  "Seulement {max} photos sont autorisées par invité.",
                     "uploadFailed":  "Le téléversement a échoué. Veuillez réessayer."

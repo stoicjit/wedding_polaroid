@@ -91,6 +91,7 @@
     "send": "Send",
     "uploadsChecking": "Checking upload status...",
     "uploadsClosed": "Uploads are closed for now.",
+    "photoLimitReachedNotice": "Thank you for coming and sharing these beautiful memories with us.",
     "noteTooLong": "Add a note up to {max} characters.",
     "photoLimitReached": "Only {max} photos are allowed per guest.",
     "uploadFailed": "Upload failed. Please try again."

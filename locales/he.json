@@ -91,6 +91,7 @@
                     "send":  "Shelicha",
                     "uploadsChecking":  "Bodekim et matzav ha-haala...",
                     "uploadsClosed":  "Ha-haalot sagurot le-akhshav.",
+                    "photoLimitReachedNotice":  "הגעתם למגבלת התמונות. תודה שבאתם ושיתפתם זיכרונות.",
                     "noteTooLong":  "Hosifu petek ba-orekh shel ad {max} tavim.",
                     "photoLimitReached":  "Mutarot rak {max} tmunot le-khol orakh.",
                     "uploadFailed":  "Ha-haala nafshela. Nasu shuv."

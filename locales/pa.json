@@ -92,6 +92,7 @@
                     "send":  "Bhejo",
                     "uploadsChecking":  "Upload status check kar reha hai...",
                     "uploadsClosed":  "Uploads hun band ne.",
+                    "photoLimitReachedNotice":  "Tusi photos di limit tak pahunch gaye ho. Aane te yaadan sanjhi karan layi dhannvaad.",
                     "noteTooLong":  "Ik note {max} akharan tak jodo.",
                     "photoLimitReached":  "Har guest layi sirf {max} photos allowed ne.",
                     "uploadFailed":  "Upload fail ho gaya. Kripya dobara try karo."

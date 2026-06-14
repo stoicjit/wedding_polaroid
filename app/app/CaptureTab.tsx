@@ -377,7 +377,14 @@ export default function CaptureTab() {
               ) : cameraError ? (
                 <div className={styles.cameraMessage}>{cameraError}</div>
               ) : cameraReady ? (
-                <div className={styles.cameraCount}>{remainingCountLabel}</div>
+                <>
+                  <div className={styles.cameraCount}>{remainingCountLabel}</div>
+                  {limitReached ? (
+                    <div className={styles.cameraMessage}>
+                      {t("capture.photoLimitReachedNotice")}
+                    </div>
+                  ) : null}
+                </>
               ) : (
                 <div className={styles.cameraMessage}>{t("capture.cameraOpening")}</div>
               )}
@@ -457,6 +464,11 @@ export default function CaptureTab() {
                   {uploadsStatusLoaded
                     ? t("capture.uploadsClosed")
                     : t("capture.uploadsChecking")}
+                </p>
+              ) : null}
+              {limitReached ? (
+                <p className={styles.captureNotice}>
+                  {t("capture.photoLimitReachedNotice")}
                 </p>
               ) : null}
               {sendError ? <p className={styles.captureError}>{sendError}</p> : null}
