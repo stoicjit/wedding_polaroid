@@ -258,6 +258,11 @@ export default function CaptureTab() {
       return;
     }
 
+    if (facingMode === "user") {
+      context.translate(width, 0);
+      context.scale(-1, 1);
+    }
+
     context.drawImage(video, 0, 0, width, height);
     const blob = await canvasToBlob(canvas);
 
