@@ -258,13 +258,6 @@ export default function CaptureTab() {
       return;
     }
 
-    if (facingMode === "user") {
-      // Some front cameras return a horizontally flipped frame even when the preview is normal.
-      // Mirror the canvas here so the saved photo matches what the user saw before capture.
-      context.translate(width, 0);
-      context.scale(-1, 1);
-    }
-
     context.drawImage(video, 0, 0, width, height);
     const blob = await canvasToBlob(canvas);
 
@@ -367,7 +360,8 @@ export default function CaptureTab() {
           <div className={styles.cameraStage}>
             <video
               ref={videoRef}
-              className={styles.cameraFeed}
+              className={`${styles.cameraFeed} ${facingMode === "user" ? styles.cameraFeedMirrored : ""
+                }`}
               autoPlay
               muted
               playsInline
